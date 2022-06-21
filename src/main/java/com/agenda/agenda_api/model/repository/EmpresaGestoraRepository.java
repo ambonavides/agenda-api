@@ -12,11 +12,11 @@ import com.agenda.agenda_api.model.entity.EmpresaGestora;
 
 public interface EmpresaGestoraRepository extends JpaRepository<EmpresaGestora, Long> {
 	
-	@Query(value="SELECT * FROM contabil.empresa u WHERE "
+	@Query(value="SELECT * FROM agenda.empresa u WHERE "
 			+ "(:COD_USUARIO_CADASTRO = 1 OR u.id_usuario_cadastro = :COD_USUARIO_CADASTRO ) "
 			+ "AND (:CNPJ is null OR UPPER(u.cnpj) LIKE CONCAT('%',:CNPJ,'%')) "
 			+ "AND (:NOME is null OR UPPER(u.nome) LIKE CONCAT('%',:NOME,'%')) "
-			,countQuery = "SELECT COUNT(*) FROM contabil.empresa u WHERE "
+			,countQuery = "SELECT COUNT(*) FROM agenda.empresa u WHERE "
 			+ "(:COD_USUARIO_CADASTRO = 1 OR u.id_usuario_cadastro = :COD_USUARIO_CADASTRO ) "
 			+ "AND (:CNPJ is null or UPPER(u.cnpj) LIKE CONCAT('%',:CNPJ,'%')) "
 			+ "AND (:NOME is null OR UPPER(u.nome)  LIKE CONCAT('%',:NOME,'%')) "
