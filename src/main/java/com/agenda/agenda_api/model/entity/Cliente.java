@@ -1,18 +1,14 @@
 package com.agenda.agenda_api.model.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -54,7 +50,7 @@ public class Cliente implements Serializable {
 	@JoinColumn(name = "id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
-	@OneToMany(mappedBy = "cliente", orphanRemoval = true, targetEntity = ConfiguracaoCliente.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<ConfiguracaoCliente> configuracoesClientes = new HashSet<ConfiguracaoCliente>(0);
+//	@OneToMany(mappedBy = "cliente", orphanRemoval = true, targetEntity = ConfiguracaoCliente.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	private Set<ConfiguracaoCliente> configuracoesClientes = new HashSet<ConfiguracaoCliente>(0);
 	
 }

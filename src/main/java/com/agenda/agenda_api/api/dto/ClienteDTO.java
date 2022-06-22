@@ -1,7 +1,5 @@
 package com.agenda.agenda_api.api.dto;
 
-import java.util.Set;
-
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,6 +12,5 @@ public class ClienteDTO {
 	private String nomeFantasia;
 	private String cnpj;
 	private UsuarioDTO usuarioCadastroDTO;
-	private Set<ConfiguracaoClienteDTO> configuracaoClientesDTO;
 
 }

@@ -1,7 +1,6 @@
 package com.agenda.agenda_api.api.resource;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,13 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agenda.agenda_api.api.dto.ClienteDTO;
-import com.agenda.agenda_api.api.dto.ConfiguracaoClienteDTO;
 import com.agenda.agenda_api.api.dto.SistemaDTO;
 import com.agenda.agenda_api.api.dto.UsuarioDTO;
 import com.agenda.agenda_api.exeption.RegraNegocioException;
 import com.agenda.agenda_api.model.entity.Cliente;
-import com.agenda.agenda_api.model.entity.ConfiguracaoCliente;
-import com.agenda.agenda_api.model.entity.Sistema;
 import com.agenda.agenda_api.model.entity.Usuario;
 import com.agenda.agenda_api.model.repository.UsuarioRepository;
 import com.agenda.agenda_api.service.ClienteService;
@@ -132,7 +127,6 @@ public class ClienteResource {
 	
 	private Cliente clienteDtoToClienteEntity(ClienteDTO dto) {
 		Cliente cliente = Cliente.builder().build();	
-		cliente.setConfiguracoesClientes(new HashSet<ConfiguracaoCliente>(0));
 		Usuario usuarioCadastro = Usuario.builder().build();
 		
 		cliente.setId(dto.getId());
@@ -148,41 +142,11 @@ public class ClienteResource {
 		}
 		cliente.setUsuarioCadastro(usuarioCadastro);
 
-		ConfiguracaoCliente configuracaoCliente = null;
-		Sistema sistema = null;
-		for(ConfiguracaoClienteDTO conf: dto.getConfiguracaoClientesDTO()) {
-			sistema = Sistema.builder()
-					.id(conf.getSistemaDTO().getId())
-					.url(conf.getSistemaDTO().getUrl())
-					.descricao(conf.getSistemaDTO().getDescricao())
-					.ativo(conf.getSistemaDTO().isAtivo())
-					.build();
-			
-			configuracaoCliente = ConfiguracaoCliente.builder()
-					.id(conf.getId())
-					.flagDeclaracaoPre(conf.isFlagDeclaracaoPre())
-					.flagDeclaracaoTom(conf.isFlagDeclaracaoTom())
-					.flagLivroPre(conf.isFlagLivroPre())
-					.flagLivroTom(conf.isFlagLivroTom())
-					.flagXmlPre(conf.isFlagXmlPre())
-					.flagXmlTom(conf.isFlagXmlTom())
-					.flagIssPre(conf.isFlagIssPre())
-					.flagIssTom(conf.isFlagIssTom())
-					.login(conf.getLogin())
-					.senha(conf.getSenha())
-					.botAtivo(conf.isBotAtivo())
-					.cliente(cliente)
-					.sistema(sistema)
-					.build();
-			cliente.getConfiguracoesClientes().add(configuracaoCliente);
-		}
-		
 		return cliente;
 	}
 	
 	private ClienteDTO clienteEntityToClienteDto(Cliente entity) {
 		ClienteDTO clienteDTO = ClienteDTO.builder().build();		
-		clienteDTO.setConfiguracaoClientesDTO(new HashSet<ConfiguracaoClienteDTO>(0));
 		UsuarioDTO usurioCadastroDTO = UsuarioDTO.builder().build();
 		
 		clienteDTO.setId(entity.getId());
@@ -192,34 +156,7 @@ public class ClienteResource {
 		
 		clienteDTO.setUsuarioCadastroDTO(usurioCadastroDTO);
 		
-		ConfiguracaoClienteDTO configuracaoClienteDTO = null;
 		SistemaDTO sistemaDTO = null;
-		for(ConfiguracaoCliente conf: entity.getConfiguracoesClientes()) {
-			sistemaDTO = SistemaDTO.builder()
-				.id(conf.getSistema().getId())
-				.url(conf.getSistema().getUrl())
-				.descricao(conf.getSistema().getDescricao())
-				.ativo(conf.getSistema().isAtivo())
-				.build();
-			
-			configuracaoClienteDTO = ConfiguracaoClienteDTO.builder()
-					.id(conf.getId())
-					.flagDeclaracaoPre(conf.isFlagDeclaracaoPre())
-					.flagDeclaracaoTom(conf.isFlagDeclaracaoTom())
-					.flagLivroPre(conf.isFlagLivroPre())
-					.flagLivroTom(conf.isFlagLivroTom())
-					.flagXmlPre(conf.isFlagXmlPre())
-					.flagXmlTom(conf.isFlagXmlTom())
-					.flagIssPre(conf.isFlagIssPre())
-					.flagIssTom(conf.isFlagIssTom())
-					.login(conf.getLogin())
-					.senha(conf.getSenha())
-					.botAtivo(conf.isBotAtivo())
-					.sistemaDTO(sistemaDTO)
-					.build();
-
-			clienteDTO.getConfiguracaoClientesDTO().add(configuracaoClienteDTO);
-		}
 		return clienteDTO;
 	}
 
