@@ -46,7 +46,7 @@ public class Cliente implements Serializable {
 	@Column(name = "cnpj", nullable = false)
 	private String cnpj;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.DETACH)
 	@JoinColumn(name = "id_usuario_cadastro")
 	private Usuario usuarioCadastro;
 	
