@@ -20,11 +20,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Boolean existsByLogin(String login);
 
-	@Query(value="select * from agenda.usuario u where 1=1 "
+	@Query(value="select * from usuario u where 1=1 "
 			+ "and (:EMAIL is null or upper(u.email) like trim(upper(concat(:EMAIL)))) "
 			+ "and (:LOGIN is null or upper(u.login) like trim(upper(concat(:LOGIN))))"
 			
-			,countQuery = "select count(*) from agenda.usuario u where 1=1 "
+			,countQuery = "select count(*) from usuario u where 1=1 "
 					+ "and (:EMAIL is null or upper(u.email) like trim(upper(concat(:EMAIL)))) "
 					+ "and (:LOGIN is null or upper(u.login) like trim(upper(concat(:LOGIN))))"
 			

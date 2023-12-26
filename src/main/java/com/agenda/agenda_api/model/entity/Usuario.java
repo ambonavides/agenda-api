@@ -21,7 +21,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "usuario", schema = "agenda")
+@Table(name = "usuario")
 @Builder
 @Data
 @NoArgsConstructor
@@ -51,7 +51,7 @@ public class Usuario implements Serializable {
 	private Boolean ativo;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	schema = "agenda", name = "user_roles", 
+	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();

@@ -12,7 +12,7 @@ import com.agenda.agenda_api.model.entity.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	
-	@Query(value="SELECT * FROM agenda.cliente u WHERE "
+	@Query(value="SELECT * FROM cliente u WHERE "
 			+ "(:COD_USUARIO_CADASTRO = 1 OR u.id_usuario_cadastro = :COD_USUARIO_CADASTRO ) "
 			+ "AND (:NOME IS NULL OR UPPER(u.nome_fantasia) LIKE TRIM(UPPER(CONCAT('%',:NOME,'%')))) "
 			+ "AND ((:CODIGO IS NULL OR :CODIGO = 0) OR u.codigo_cliente = :CODIGO) "
